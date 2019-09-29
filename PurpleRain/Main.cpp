@@ -6,38 +6,36 @@
 using namespace sf;
 
 struct Particle {
-	int l;		    // Длина хвоста
-	int w;		    // Толщина капли
-	Vector2f coor;  // Координата головы
-	float v;		// Скорость капли
-	int alpha;      // Прозрачность
+	int l;		// Р”Р»РёРЅР° С…РІРѕСЃС‚Р°
+	int w;		// РўРѕР»С‰РёРЅР° РєР°РїР»Рё
+	Vector2f coor;  // РљРѕРѕСЂРґРёРЅР°С‚Р° РіРѕР»РѕРІС‹
+	float v;	// РЎРєРѕСЂРѕСЃС‚СЊ РєР°РїР»Рё
+	int alpha;      // РџСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ
 };
 
 int main() {
-	const int Xwin = 1024, Ywin = 620, Ndrop = 250;	   // Xwin - ширина экрана, Ywin - длина экрана,
-													   // Ndrop - кол-во капель
+	const int Xwin = 1024, Ywin = 620, Ndrop = 250;	   // Xwin - С€РёСЂРёРЅР° СЌРєСЂР°РЅР°, Ywin - РґР»РёРЅР° СЌРєСЂР°РЅР°,
+							   // Ndrop - РєРѕР»-РІРѕ РєР°РїРµР»СЊ
 	Particle rain[Ndrop];
 
 	RenderWindow window(VideoMode(Xwin, Ywin), "Purple Rain", Style::Close);
 	window.setFramerateLimit(60);
 
-
-
 	RectangleShape drop;
 	drop.setFillColor(Color(138, 43, 226));
 
-	for (int i = 0, coin; i < Ndrop; i++) {	   // Начальные значения для капель
+	for (int i = 0, coin; i < Ndrop; i++) {	   // РќР°С‡Р°Р»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РєР°РїРµР»СЊ
 		rain[i].coor.x = rand() % (Xwin - 2) + 2;
-		rain[i].coor.y = -(rand() % (Ywin / 2 - 2) + 2);	 // Отрицательное значение нужно,
-															 // чтоб они спавнились заранее
+		rain[i].coor.y = -(rand() % (Ywin / 2 - 2) + 2);	 // РћС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РЅСѓР¶РЅРѕ,
+									 // С‡С‚РѕР± РѕРЅРё СЃРїР°РІРЅРёР»РёСЃСЊ Р·Р°СЂР°РЅРµРµ
 		rain[i].l = rand() % 8 + 30;
 		rain[i].w = rand() % 3 + 2;
-		coin = rand() % 2;	 // Рандомизирование капель ака подкидывание монетки
-		if (coin == 0) {     // Близкие капли		
+		coin = rand() % 2;	 // Р Р°РЅРґРѕРјРёР·РёСЂРѕРІР°РЅРёРµ РєР°РїРµР»СЊ Р°РєР° РїРѕРґРєРёРґС‹РІР°РЅРёРµ РјРѕРЅРµС‚РєРё
+		if (coin == 0) {     	 // Р‘Р»РёР·РєРёРµ РєР°РїР»Рё		
 			rain[i].v = rand() % 6 + 3;
 			rain[i].alpha = rand() % 22 + 233;
 		}
-		else {				 // Далёкие капли
+		else {				 // Р”Р°Р»С‘РєРёРµ РєР°РїР»Рё (РєР°РїР»Рё РЅР° Р·Р°РґРЅРµРј РїР»Р°РЅРµ)
 			rain[i].v = rand() % 4 + 2;
 			rain[i].alpha = rand() % 50 + 100;
 		}
@@ -62,7 +60,7 @@ int main() {
 			drop.setFillColor(Color(138, 43, 226, rain[i].alpha));
 			drop.setSize(Vector2f(rain[i].w, rain[i].l));
 
-			if (rain[i].coor.y > Ywin) {		// Если заходит за нижнюю границу, то телепортирует вверх
+			if (rain[i].coor.y > Ywin) {		// Р•СЃР»Рё Р·Р°С…РѕРґРёС‚ Р·Р° РЅРёР¶РЅСЋСЋ РіСЂР°РЅРёС†Сѓ, С‚Рѕ С‚РµР»РµРїРѕСЂС‚РёСЂСѓРµС‚ РІРІРµСЂС…
 				rain[i].coor.y = -(rand() % (Ywin / 2 - 2) + 2);
 				rain[i].coor.x = rand() % (Xwin - 2) + 2;
 			}
